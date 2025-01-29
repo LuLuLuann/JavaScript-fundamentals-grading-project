@@ -124,8 +124,8 @@ function validateCourseId() {
 }
 // validateCourseId();
 
-// validatePointsPossible() to be called under validateAssignments()
 // FUNCTION #2 THAT WORKS
+// validatePointsPossible() to be called under validateAssignments()
 function validatePointsPossible() {
     // Makes sure points possible are more than 0
     // no negative numbers
@@ -166,6 +166,174 @@ console.log(filterValidAssignments(AssignmentGroup.assignments));
 
 
 
+
+
+// TO DO: have to loop through learner submissions
+
+// 1st loop = for of loop ()
+// compare the date it was submitted to the date it was due
+// if else statement -- if late,  score = score - 10%
+// else score = score (can be a default score = score)
+
+
+
+// 2nd loop = find out what the possible points are they could have gotten and compare it to what they did get
+// nested for in loop
+
+
+// //////////////////////////////////////
+// for (const element of object) {
+
+// }
+// ////////////////////
+// for (const key in object) {
+//     if (Object.prototype.hasOwnProperty.call(object, key)) {
+//         const element = object[key];
+
+//     }
+// }
+// ///////////////////
+// array.forEach(element => {
+
+// });
+// /////////////////
+// while (condition) {
+
+// }
+// //////////////////
+
+
+
+
+
+
+
+// THIS IS NOT GOOD -- IT GETS THE RESULTS BUT IS CRAZY LONG
+// function getLearnerData(course, ag, submissions) {
+//     // remove future assignments because they shouldn't be included in the average
+//     let validAssignments = filterValidAssignments(ag.assignments);
+// // store resultsper learner in a variable
+// let learnerResults={}; 
+
+// for (let submission of submissions){
+//     let LearnerId = submission.learner_id;
+//     // .find() is a method used to search for an element in an array that meets a specific condition
+//     let assignment = validAssignments.find(a=> a.id === submission.assignment_id);
+
+//     // Skips assignments that were removed
+//     if (!assignment) continue; 
+
+//     let pointsPossible = assignment.points_possible; 
+//     let score = submission.submission.score;
+// let submittedAt = new Date(submission.submission.submitted_at);
+// let dueAt = new Date(assignment.due_at);
+
+// // Calculate percentage
+// let percentage = score / pointsPossible; 
+
+// // Apply late penalty if late
+// if (submittedAt > dueAt) {
+//     percentage *= 0.90; // 10% penalty
+// }
+// // Store learner data.
+// if (!learnerResults[LearnerId]) {
+//     learnerResults[LearnerId] = { id: LearnerId, totalScore: 0, totalPossible: 0}
+// }
+// //Store individual assignment score.
+// learnerResults[LearnerId][assignment.id] = percentage; 
+// // Add up scores.
+// learnerResults[LearnerId].totalScore += score;
+// // Adds up possible points. 
+// learnerResults[LearnerId].totalPossible += pointsPossible; 
+// }
+// // Figure out weighted average for each learner
+// return Object.values(learnerResults).map(learner => ({
+//     id: learner.id, 
+//     // Weighted average
+//     avg: learner.totalScore / learner.totalPossible, 
+//     // spread to include assignment scores
+//     ...learner
+// }));
+// }
+
+// //Run the function
+// const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions); 
+// console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////
+
+
+// here, we would process this data to achieve the desired result.
+// const result = [
+// {
+//     // the ID of the learner for which this data has been collected
+//     id: 125,
+//     // the learner’s total, weighted average, in which assignments
+//     // with more points_possible should be counted for more
+//     // e.g. a learner with 50/100 on one assignment and 190/200 on another
+//     // would have a weighted average score of 240/300 = 80%.
+//     avg: 0.985, // (47 + 150) / (50 + 150)
+//     1: 0.94, // 47 / 50
+//     2: 1.0 // 150 / 150
+// },
+// {
+//     // the ID of the learner for which this data has been collected
+//     id: 132,
+//     // the learner’s total, weighted average, in which assignments
+//     // with more points_possible should be counted for more
+//     // e.g. a learner with 50/100 on one assignment and 190/200 on another
+//     // would have a weighted average score of 240/300 = 80%.
+//     avg: 0.82, // (39 + 125) / (50 + 150)
+//     1: 0.78, // 39 / 50
+//     2: 0.833 // late: (140 - 15) / 150
+// }
+//     ];
+
+//     return result;
+// }
+
+// const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+
+// console.log(result);
+
+//   DELETE THIS
+//
+// const result = [
+//     {
+//       id: 125,
+//       avg: 0.985, // (47 + 150) / (50 + 150)
+//       1: 0.94, // 47 / 50
+//       2: 1.0 // 150 / 150
+//     },
+//     {
+//       id: 132,
+//       avg: 0.82, // (39 + 125) / (50 + 150)
+//       1: 0.78, // 39 / 50
+//       2: 0.833 // late: (140 - 15) / 150
+//     }
+//   ];
+
+//   return result;
+
+
+
+
+
+
+
 // WRONG
 // function filterOutFutureDate(){
 //     define current date
@@ -175,15 +343,11 @@ console.log(filterValidAssignments(AssignmentGroup.assignments));
 //     return all the valid dates // callback in a filter will only define true or false // can't do that in this function
 // }
 
-
-
-
 // function validateAssignments() {
 //     validatePointsPossible();
 //     ensureAllFieldsHaveValidValues();
 // }
 // validateAssignments();
-
 
 // // to be called under validateAssignments()
 // function ensureAllFieldsHaveValidValues() {
@@ -217,60 +381,3 @@ console.log(filterValidAssignments(AssignmentGroup.assignments));
 //         // validate for proper data types and logical values
 //     }
 // }
-
-
-
-function getLearnerData(course, ag, submissions) {
-
-    // here, we would process this data to achieve the desired result.
-    const result = [
-        // {
-        //     // the ID of the learner for which this data has been collected
-        //     id: 125,
-        //     // the learner’s total, weighted average, in which assignments
-        //     // with more points_possible should be counted for more
-        //     // e.g. a learner with 50/100 on one assignment and 190/200 on another
-        //     // would have a weighted average score of 240/300 = 80%.
-        //     avg: 0.985, // (47 + 150) / (50 + 150)
-        //     1: 0.94, // 47 / 50
-        //     2: 1.0 // 150 / 150
-        // },
-        // {
-        //     // the ID of the learner for which this data has been collected
-        //     id: 132,
-        //     // the learner’s total, weighted average, in which assignments
-        //     // with more points_possible should be counted for more
-        //     // e.g. a learner with 50/100 on one assignment and 190/200 on another
-        //     // would have a weighted average score of 240/300 = 80%.
-        //     avg: 0.82, // (39 + 125) / (50 + 150)
-        //     1: 0.78, // 39 / 50
-        //     2: 0.833 // late: (140 - 15) / 150
-        // }
-    ];
-
-    return result;
-}
-
-const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
-
-console.log(result);
-
-//   DELETE THIS
-//
-// const result = [
-//     {
-//       id: 125,
-//       avg: 0.985, // (47 + 150) / (50 + 150)
-//       1: 0.94, // 47 / 50
-//       2: 1.0 // 150 / 150
-//     },
-//     {
-//       id: 132,
-//       avg: 0.82, // (39 + 125) / (50 + 150)
-//       1: 0.78, // 39 / 50
-//       2: 0.833 // late: (140 - 15) / 150
-//     }
-//   ];
-
-//   return result;
-
